@@ -8,7 +8,7 @@ apt-get -y purge console-setup console-setup-linux keyboard-configuration xkb-da
 
 apt-get -y --purge autoremove
 
-apt-get -y install acpi-support-base openssh-server iptables-persistent deborphan anacron net-tools wget cdebconf
+apt-get -y install acpi-support-base openssh-server iptables-persistent deborphan anacron net-tools wget telnet tcpdump lsof ping cdebconf
 
 apt-get -y update
 apt-get -y upgrade
