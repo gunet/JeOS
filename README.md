@@ -18,5 +18,9 @@ The produced .iso file installs a Debian OS, by requesting only the root passwor
 * <ins>_sources.list_</ins>: This file is copied into the _/etc/apt/_ folder by the late_command of d-i installer and defines the repos from which the packages will be installed via ```apt```.
 * <ins>_internal_custom_script.sh_</ins>: This script is executed by the late_command of d-i installer and adds or removes packages to/from the initial installation. Any package addition or removal should be included here.
 * <ins>_custom_script.sh_</ins>: This script is executed by the late_command of d-i installer and configures services(i.e. the port of the ssh server) and removes files or folders. Any configuration of system services should be included here.
+* <ins>_install_docker_</ins>: This script installs docker.
 
 ***Note***: For any further addition to the above, the new configuration file or script must be included in the _gunet/_ file and the respective changes in the late_command of the preseed.cfg file must be performed. 
+
+## Size
+The total size of the installation is 3.2 GB.
