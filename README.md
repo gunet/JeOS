@@ -35,6 +35,6 @@ The produced .iso file installs a Debian OS, by requesting only the root passwor
 ***Note***: For any further addition to the above, the new configuration file or script must be included in the _gunet/_ file and the respective changes in the late_command of the preseed.cfg file must be performed. 
 
 ## Size
-* Docker image: `500 MB`
+* Docker image: `510 MB`
 * JeOS ISO CD: `450 MB`
 * JeOS installation: `3.2 GB`
