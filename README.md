@@ -8,7 +8,7 @@ The recommened way to run the container is:
 `docker run --rm -v ${PWD}/final:/var/jeos/final --privileged gunet/jeos-builder:<version>`
 
 ### Available versions
-* `latest`: `11.8`
+* `latest`: `11.8.0`
 
 ## Run
 In order to produce a Just Enough Operating System iso image, we need to run the script __mkiso.sh__ as follows:
