@@ -10,7 +10,13 @@ The recommened way to run the container is:
 ### Available versions
 * `latest`: `11.8.0`
 
-## Run
+## Size
+* Docker image: `510 MB`
+* JeOS ISO CD: `450 MB`
+* JeOS installation: `3.2 GB`
+
+## Notes for repo files
+### Run
 In order to produce a Just Enough Operating System iso image, we need to run the script __mkiso.sh__ as follows:
 ```sudo ./mkiso.sh <debian_image>.iso```
 The `<debian_image.iso>` file is a Debian ISO file from the Debian project. An archive of ISO images for previous
@@ -20,7 +26,7 @@ Debian versions can be found [here](https://cdimage.debian.org/mirror/cdimage/ar
 * The script will produce the ***JeOS iso file*** _gunet-jeos.iso_ into the ***Working Directory***.
 * We must run the script with ***sudo*** privileges.
 
-## Configuration
+### Configuration
 The produced .iso file installs a Debian OS, by requesting only the root password and the network configuration paramenters, in case DHCP fails, during the installation. All the configuration must be located into _gunet/_ folder. In the current configuration, _gunet/_ folder contains the follwing:
 * <ins>_preseed.cfg_</ins>: This file contains all the configuration of d-i installer that automates the installation procedure. The parameters are set to produce an as minimal as possible installation. During the _late_command_ step, we add further configuration and run scripts that we want to include in the installation procedure.
 * <ins>_00norecommends_</ins>: This file is copied into the _/etc/apt/apt.conf.d/_ folder by the late_command of d-i installer and prevents the installation of suggested and recommended packages during package installation via ```apt```.
@@ -32,9 +38,4 @@ The produced .iso file installs a Debian OS, by requesting only the root passwor
   - In our case we change the ssh port from the default `22` to `65432`.
 * <ins>_install_docker_</ins>: This script installs docker.
 
-***Note***: For any further addition to the above, the new configuration file or script must be included in the _gunet/_ file and the respective changes in the late_command of the preseed.cfg file must be performed. 
-
-## Size
-* Docker image: `510 MB`
-* JeOS ISO CD: `450 MB`
-* JeOS installation: `3.2 GB`
+***Note***: For any further addition to the above, the new configuration file or script must be included in the _gunet/_ file and the respective changes in the late_command of the preseed.cfg file must be performed.
