@@ -2,7 +2,8 @@
 echo "apt update.."
 apt -qq update
 echo "Install prerequisite packages.."
-apt -qqy install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+apt -qqy install apt-transport-https ca-certificates \
+  curl gnupg2 software-properties-common
 echo "Install git.."
 apt -qqy git
 echo "Add Docker repository GPG key.."
