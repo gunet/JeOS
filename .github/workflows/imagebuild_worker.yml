@@ -1,0 +1,49 @@
+name: build-image
+run-name: Build Debian version image
+
+on:
+  workflow_call:
+    inputs:
+      debian-version:
+        required: true
+        type: string
+      image-tag:
+          required: true
+          type: string
+        
+jobs:
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print inputs
+        run: |
+          echo "base-tag: ${{ inputs.debian-version }}"
+      - name: Set timezone
+        uses: zcong1993/setup-timezone@master
+        with:
+          timezone: "Europe/Athens"
+      - name: Get date
+        id: date
+        run: echo "push_date=$(date '+%H:%M@%d/%m/%Y')" >> $GITHUB_OUTPUT
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push Base image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          build-args: |
+            DEBIAN_VERSION=${{ inputs.debian-version }}
+          push: true
+          tags: ghcr.io/gunet/jeos-builder:${{ inputs.image-tag }}
+          labels: gr.gunet.jeos-builder.pushdate=${{ steps.date.outputs.push_date }}
+          cache-from: type=registry,ref=ghcr.io/gunet/jeos-builder:buildcache
+          cache-to: type=registry,ref=ghcr.io/gunet/jeos-builder:buildcache,mode=max
