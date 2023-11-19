@@ -10,8 +10,8 @@ set -u
 # xorriso
 # syslinux
 
-if [[ ! -v DEBIAN_ISO ]]; then
-  echo "Env var DEBIAN_ISO is not set!"
+if [[ $# -eq 0 ]]; then
+  echo "Usage: $0 <debian iso filename>"
   exit 1
 fi
 

@@ -32,7 +32,9 @@ RUN chmod 0755 ${JEOS_DIR}/mkiso.sh && \
 
 WORKDIR ${JEOS_DIR}
 
-
 ENV TZ=Europe/Athens
+ENV DEBIAN_ISO=${DEBIAN_ISO}
 
 ENTRYPOINT [ "/var/jeos/mkiso.sh" ]
+
+CMD ["${DEBIAN_ISO}"]
