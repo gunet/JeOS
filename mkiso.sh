@@ -12,14 +12,14 @@ set -u
 # syslinux
 
 if [[ $1 == "" ]]; then
-	echo "Usage: ./mkiso.sh <debian_iso_file>.iso"
+	echo "Usage: $0 <debian_iso_file>.iso"
 	exit 1;
 fi;
 
 PROJECT_DIR=$(pwd)
 ISOFILE=$PROJECT_DIR/$1
 ISOFILE_FINAL=$PROJECT_DIR/gunet-jeos.iso
-ISODIR=isofiles
+ISODIR=${PROJECT_DIR}/isofiles
 ISODIR_WRITE=$ISODIR-rw
 PRESEED_DIR=$PROJECT_DIR/gunet
 
@@ -30,7 +30,7 @@ echo 'mounting ISO9660 filesystem...'
 [ -d $ISODIR ] || mkdir -p $ISODIR
 mount -o loop $ISOFILE $ISODIR
 
-echo 'coping to writable dir...'
+echo 'copying to writable dir...'
 rm -rf $ISODIR_WRITE || true
 [ -d $ISODIR_WRITE ] || mkdir -p $ISODIR_WRITE
 rsync -a -H --exclude=TRANS.TBL $ISODIR/ $ISODIR_WRITE
