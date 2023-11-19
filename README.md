@@ -4,7 +4,8 @@ GUNet Just enough OS (based on Debian)
 ## Docker
 The final ISO image will be in the folder `/var/jeos/final`. We must volume mount it in order to have it available after
 the Docker container has finished.
-The recommened way to run the container is `docker run --rm -v ${PWD}/final:/var/jeos/final gunet/jeos-builder:<version>`
+The recommened way to run the container is:
+`docker run --rm -v ${PWD}/final:/var/jeos/final --privileged gunet/jeos-builder:<version>`
 
 ### Available versions
 * `latest`: `11.8`
