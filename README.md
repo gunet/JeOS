@@ -4,7 +4,8 @@ GUNet Just enough OS (based on Debian)
 ## Run
 In order to produce a Just Enough Operating System iso image, we need to run the script __mkiso.sh__ as follows:
 ```sudo ./mkiso.sh <debian_image>.iso```
-The `<debian_image.iso>` file is a Debian ISO file from the Debian project
+The `<debian_image.iso>` file is a Debian ISO file from the Debian project. An archive of ISO images for previous
+Debian versions can be found [here](https://cdimage.debian.org/mirror/cdimage/archive/)
 
 ***Notes***:
 * The script will produce the ***JeOS iso file*** _gunet-jeos.iso_ into the ***Working Directory***.
