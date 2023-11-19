@@ -36,4 +36,5 @@ The produced .iso file installs a Debian OS, by requesting only the root passwor
 
 ## Size
 * Docker image: `500 MB`
+* JeOS ISO CD: `450 MB`
 * JeOS installation: `3.2 GB`
