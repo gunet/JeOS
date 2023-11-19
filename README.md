@@ -1,6 +1,14 @@
 # JeOS
 GUNet Just enough OS (based on Debian)
 
+## Docker
+The final ISO image will be in the folder `/var/jeos/final`. We must volume mount it in order to have it available after
+the Docker container has finished.
+The recommened way to run the container is `docker run --rm -v ${PWD}/final:/var/jeos/final gunet/jeos-builder:<version>`
+
+### Available versions
+* `latest`: `11.8`
+
 ## Run
 In order to produce a Just Enough Operating System iso image, we need to run the script __mkiso.sh__ as follows:
 ```sudo ./mkiso.sh <debian_image>.iso```
@@ -26,4 +34,5 @@ The produced .iso file installs a Debian OS, by requesting only the root passwor
 ***Note***: For any further addition to the above, the new configuration file or script must be included in the _gunet/_ file and the respective changes in the late_command of the preseed.cfg file must be performed. 
 
 ## Size
-The total size of the installation is 3.2 GB.
+* Docker image: `500 MB`
+* JeOS installation: `3.2 GB`
