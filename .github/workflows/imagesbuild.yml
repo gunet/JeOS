@@ -1,0 +1,31 @@
+name: JeOS-builder-build
+run-name: Build JeOS builder Docker images for all Debian versions
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "main"
+    paths:
+      - 'Dockerfile'
+      - 'gunet/**'
+      - 'mkiso.sh'
+
+jobs:
+  images-build:
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        version: ['11.8.0']
+    uses: ./.github/workflows/imagebuild_worker.yml
+    with:
+      debian-version: ${{matrix.version }}
+      image-tag: ${{ matrix.version }}
+    secrets: inherit
+  latest-build:
+    uses: ./.github/workflows/imagebuild_worker.yml
+    with:
+      debian-version: '11.8.0'
+      image-tag: latest
+    secrets: inherit

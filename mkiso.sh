@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-
 set -u
 
 # source:
@@ -11,17 +10,17 @@ set -u
 # xorriso
 # syslinux
 
-if [[ $1 == "" ]]; then
-	echo "Usage: ./mkiso.sh <debian_iso_file>.iso"
-	exit 1;
-fi;
+if [[ $# -eq 0 ]]; then
+  echo "Usage: $0 <debian iso filename>"
+  exit 1
+fi
 
 PROJECT_DIR=$(pwd)
-ISOFILE=$PROJECT_DIR/$1
-ISOFILE_FINAL=$PROJECT_DIR/gunet-jeos.iso
-ISODIR=isofiles
-ISODIR_WRITE=$ISODIR-rw
-PRESEED_DIR=$PROJECT_DIR/gunet
+ISOFILE=${PROJECT_DIR}/debian/${DEBIAN_ISO}
+ISOFILE_FINAL=${PROJECT_DIR}/final/gunet-jeos.iso
+ISODIR=${PROJECT_DIR}/isofiles
+ISODIR_WRITE=${ISODIR}-rw
+PRESEED_DIR=${PROJECT_DIR}/gunet
 
 sed -i "s/^M//" $PRESEED_DIR/custom_script.sh
 
@@ -30,7 +29,7 @@ echo 'mounting ISO9660 filesystem...'
 [ -d $ISODIR ] || mkdir -p $ISODIR
 mount -o loop $ISOFILE $ISODIR
 
-echo 'coping to writable dir...'
+echo 'copying to writable dir...'
 rm -rf $ISODIR_WRITE || true
 [ -d $ISODIR_WRITE ] || mkdir -p $ISODIR_WRITE
 rsync -a -H --exclude=TRANS.TBL $ISODIR/ $ISODIR_WRITE
@@ -48,14 +47,14 @@ sed 's/initrd.gz/initrd.gz file=\/cdrom\/gunet\/preseed.cfg/' -i $ISODIR_WRITE/i
 
 mkdir -p irmod
 cd irmod
-gzip -d < ../$ISODIR_WRITE/install.amd/initrd.gz | \
+gzip -d < $ISODIR_WRITE/install.amd/initrd.gz | \
 cpio --extract --make-directories --no-absolute-filenames
 cp $PRESEED_DIR/preseed.cfg preseed.cfg
 chown root:root preseed.cfg 
-chmod o+w ../$ISODIR_WRITE/install.amd/initrd.gz
+chmod o+w $ISODIR_WRITE/install.amd/initrd.gz
 find . | cpio -H newc --create | \
-        gzip -9 > ../$ISODIR_WRITE/install.amd/initrd.gz
-chmod o-w ../$ISODIR_WRITE/install.amd/initrd.gz
+        gzip -9 > $ISODIR_WRITE/install.amd/initrd.gz
+chmod o-w $ISODIR_WRITE/install.amd/initrd.gz
 cd ../
 rm -fr irmod/
 
@@ -69,7 +68,7 @@ genisoimage -o $ISOFILE_FINAL \
    -r -J -no-emul-boot -boot-load-size 4 \
    -boot-info-table \
    -b isolinux/isolinux.bin \
-   -c isolinux/boot.cat ./$ISODIR_WRITE
+   -c isolinux/boot.cat $ISODIR_WRITE
 
 isohybrid $ISOFILE_FINAL
 
