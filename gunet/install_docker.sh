@@ -13,7 +13,7 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(
 echo "apt update (second time).."
 apt update
 echo "Install Docker.."
-apt -qqy install docker-ce
+apt -qqy install docker-ce docker-compose-plugin
 echo "Show docker status.."
 systemctl status docker
 echo "Running docker version.."
