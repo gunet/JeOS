@@ -14,6 +14,7 @@ The following environment variables are available. For network configuration, th
 * `NET_NAMESERVERS`: Nameserver IPs to use, separated by space (ie `8.8.8.8 4.4.4.4`)
 * `NET_HOSTNAME`: The hostname to set (ie `sso.gunet.gr`)
 * `NET_DOMAIN`: The domain to set (ie `gunet.gr`)
+* `NET_STATIC`: If set to `yes` then we only perform static network configuration and **all** the above variables **must** be set
 * `ROOT_PASSWORD`: The (plaintext) root password
 
 ### Available versions

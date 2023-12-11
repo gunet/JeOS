@@ -49,6 +49,7 @@ ENV DEBIAN_ISO=${DEBIAN_ISO}
 # ENV NET_HOSTNAME="sso.gunet.gr"
 # ENV NET_DOMAIN="gunet.gr"
 
+ENV NET_STATIC="no"
 ENV NET_IP="notset"
 ENV NET_GATEWAY="notset"
 ENV NET_NAMESERVERS="notset"

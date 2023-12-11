@@ -26,6 +26,15 @@ ISODIR_WRITE=${ISODIR}-rw
 PRESEED_DIR=${PROJECT_DIR}/gunet
 
 # check for environment variables
+if [[ ${NET_STATIC} == "yes" ]]; then
+  if [[ ${NET_IP} == "notset" || ${NET_GATEWAY} == "notset" || \
+  ${NET_NAMESERVERS} == "notset" || ${NET_HOSTNAME} == "notset" || \
+  ${NET_DOMAIN} == "notset" ]]; then
+    echo "Environment variable NET_STATIC is yes but some NET_* variables are not set!"
+    exit 1
+  fi
+  sed -i'' -e "s/^#STATIC#//g" ${PRESEED_DIR}/preseed.cfg
+fi
 if [[ ${NET_IP} != "notset" ]]; then
   if [[ ${NET_GATEWAY} == "notset" || ${NET_NAMESERVERS} == "notset" ]]; then
     echo "Environment variable NET_IP is set but NET_GATEWAY or NET_NAMESERVERS are not!"
@@ -70,6 +79,9 @@ if [[ ${ROOT_PASSWORD} != "notset" ]]; then
   echo "Root passwd: ${ROOT_PASSWORD}"
   sed -i'' -e "s/^#ROOT#//g" -e "s/__ROOT_PASSWORD__/${ROOT_PASSWORD}/" ${PRESEED_DIR}/preseed.cfg
 fi
+
+cat ${PRESEED_DIR}/preseed.cfg
+exit
 
 sed -i "s/^M//" $PRESEED_DIR/custom_script.sh
 
