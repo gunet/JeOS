@@ -1,4 +1,7 @@
 #!/bin/bash
+# Include the helper functions
+source $(dirname "$0")/helper_functions.sh
+
 set -e
 set -u
 
@@ -21,6 +24,52 @@ ISOFILE_FINAL=${PROJECT_DIR}/final/gunet-jeos.iso
 ISODIR=${PROJECT_DIR}/isofiles
 ISODIR_WRITE=${ISODIR}-rw
 PRESEED_DIR=${PROJECT_DIR}/gunet
+
+# check for environment variables
+if [[ ${NET_IP} != "notset" ]]; then
+  if [[ ${NET_GATEWAY} == "notset" || ${NET_NAMESERVERS} == "notset" ]]; then
+    echo "Environment variable NET_IP is set but NET_GATEWAY or NET_NAMESERVERS are not!"
+    exit 1
+  fi
+  NET_IP_PLAIN=$(cidr_ip ${NET_IP})
+  NET_PREFIX=$(cidr_prefix ${NET_IP})
+  if [[ ${NET_PREFIX} == "" ]]; then
+    echo "NET_IP should be of CIDR form"
+    exit 1
+  fi
+  NET_NETMASK=$(netmask_of_prefix ${NET_PREFIX})
+
+  echo "Network configuration:"
+  echo "IP (CIDR):   ${NET_IP}"
+  echo "IP (plain):  ${NET_IP_PLAIN}"
+  echo "IP Prefix:   ${NET_PREFIX}"
+  echo "Netmask:     ${NET_NETMASK}"
+  echo "IP gateway:  ${NET_GATEWAY}"
+  echo "Nameservers: ${NET_NAMESERVERS}"
+  echo "-------------------------------"
+
+  sed -i'' -e "s/^#NET#//g" -e "s/__IP__/${NET_IP_PLAIN}/" -e "s/__NETMASK__/${NET_NETMASK}/" \
+  -e "s/__GATEWAY__/${NET_GATEWAY}/" -e "s/__NAMESERVERS__/${NET_NAMESERVERS}/" ${PRESEED_DIR}/preseed.cfg
+fi
+
+if [[ ${NET_HOSTNAME} != "notset" ]]; then
+  if [[ ${NET_DOMAIN} == "notset" ]]; then
+    echo "Environment variable NET_HOSTNAME is set but NET_DOMAIN is not!"
+    exit 1
+  fi
+  echo "Hostname configuration:"
+  echo "Hostname:    ${NET_HOSTNAME}"
+  echo "Domain:      ${NET_DOMAIN}"
+  echo "----------------------------"
+
+  sed -i'' -e "s/^#HOST#//g" \
+  -e "s/__HOSTNAME__/${NET_HOSTNAME}/" -e "s/__DOMAIN__/${NET_DOMAIN}/" ${PRESEED_DIR}/preseed.cfg
+fi
+
+if [[ ${ROOT_PASSWORD} != "notset" ]]; then
+  echo "Root passwd: ${ROOT_PASSWORD}"
+  sed -i'' -e "s/^#ROOT#//g" -e "s/__ROOT_PASSWORD__/${ROOT_PASSWORD}/" ${PRESEED_DIR}/preseed.cfg
+fi
 
 sed -i "s/^M//" $PRESEED_DIR/custom_script.sh
 

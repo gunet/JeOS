@@ -24,7 +24,7 @@ ARG DEBIAN_REPO=https://cdimage.debian.org/mirror/cdimage/archive/${DEBIAN_VERSI
 ARG DEBIAN_ISO=debian-${DEBIAN_VERSION}-amd64-netinst.iso
 
 RUN curl -L ${DEBIAN_REPO}/${DEBIAN_ISO} > ${JEOS_DIR}/debian/${DEBIAN_ISO}
-COPY mkiso.sh ${JEOS_DIR}/
+COPY mkiso.sh helper_functions.sh ${JEOS_DIR}/
 COPY gunet/ ${JEOS_DIR}/gunet/
 
 RUN chmod 0755 ${JEOS_DIR}/mkiso.sh && \
@@ -34,6 +34,31 @@ WORKDIR ${JEOS_DIR}
 
 ENV TZ=Europe/Athens
 ENV DEBIAN_ISO=${DEBIAN_ISO}
+
+# Network settings which can be passed along in the command-line if DHCP does not return something
+# NET_IP: CIDR format for the IP
+# NET_GATEWAY: The gateway to setup
+# NET_NAMESERVERS: a list of nameservers (separated by space)
+# NET_HOSTNAME: The hostname
+# NET_DOMAIN: The domain
+#
+# Actual working example:
+# ENV NET_IP="195.134.100.24/24"
+# ENV NET_GATEWAY="195.134.100.1"
+# ENV NET_NAMESERVERS="8.8.8.8 4.4.4.4"
+# ENV NET_HOSTNAME="sso.gunet.gr"
+# ENV NET_DOMAIN="gunet.gr"
+
+ENV NET_IP="notset"
+ENV NET_GATEWAY="notset"
+ENV NET_NAMESERVERS="notset"
+ENV NET_HOSTNAME="notset"
+ENV NET_DOMAIN="notset"
+
+# We can accept the root password from the command-line as an environment
+# variable
+
+ENV ROOT_PASSWORD="notset"
 
 ENTRYPOINT [ "/var/jeos/mkiso.sh" ]
 
