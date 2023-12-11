@@ -80,9 +80,6 @@ if [[ ${ROOT_PASSWORD} != "notset" ]]; then
   sed -i'' -e "s/^#ROOT#//g" -e "s/__ROOT_PASSWORD__/${ROOT_PASSWORD}/" ${PRESEED_DIR}/preseed.cfg
 fi
 
-cat ${PRESEED_DIR}/preseed.cfg
-exit
-
 sed -i "s/^M//" $PRESEED_DIR/custom_script.sh
 
 echo 'mounting ISO9660 filesystem...'
@@ -93,7 +90,7 @@ mount -o loop $ISOFILE $ISODIR
 echo 'copying to writable dir...'
 rm -rf $ISODIR_WRITE || true
 [ -d $ISODIR_WRITE ] || mkdir -p $ISODIR_WRITE
-rsync -a -H --exclude=TRANS.TBL $ISODIR/ $ISODIR_WRITE
+rsync --info=progress2 -a -H --exclude=TRANS.TBL $ISODIR/ $ISODIR_WRITE
 echo 'unmount iso dir'
 umount $ISODIR
 
@@ -106,6 +103,7 @@ cp -r $PRESEED_DIR/ $ISODIR_WRITE/
 echo 'edit isolinux/txt.cfg...'
 sed 's/initrd.gz/initrd.gz file=\/cdrom\/gunet\/preseed.cfg/' -i $ISODIR_WRITE/isolinux/txt.cfg
 
+echo 'creating initrd.gz..'
 mkdir -p irmod
 cd irmod
 gzip -d < $ISODIR_WRITE/install.amd/initrd.gz | \
@@ -127,7 +125,7 @@ popd
 echo 'making ISO...'
 genisoimage -o $ISOFILE_FINAL \
    -r -J -no-emul-boot -boot-load-size 4 \
-   -boot-info-table \
+   -boot-info-table -quiet \
    -b isolinux/isolinux.bin \
    -c isolinux/boot.cat $ISODIR_WRITE
 
