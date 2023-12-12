@@ -98,6 +98,7 @@ echo 'correcting permissions...'
 chmod 755 -R $ISODIR_WRITE
 
 echo 'copying preseed file...'
+cp gunet/isolinux.cfg $ISODIR_WRITE/isolinux/
 cp -r $PRESEED_DIR/ $ISODIR_WRITE/
 
 echo 'edit isolinux/txt.cfg...'
