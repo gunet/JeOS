@@ -7,6 +7,16 @@ the Docker container has finished.
 The recommened way to run the container is:
 `docker run --rm -v ${PWD}/final:/var/jeos/final --privileged ghcr.io/gunet/jeos-builder:<version>`
 
+### Environment variables
+The following environment variables are available. For network configuration, the general path is to use DHCP provided ones and *only* if these are not available, then use the ones in environment variables (if they are provided):
+* `NET_IP`: The static IP in CIDR form (ie `192.168.2.1/24`).
+* `NET_GATEWAY`: The gateway IP. Only if IP has already been passed.
+* `NET_NAMESERVERS`: Nameserver IPs to use, separated by space (ie `8.8.8.8 4.4.4.4`)
+* `NET_HOSTNAME`: The hostname to set (ie `sso.gunet.gr`)
+* `NET_DOMAIN`: The domain to set (ie `gunet.gr`)
+* `NET_STATIC`: If set to `yes` then we only perform static network configuration and **all** the above variables **must** be set
+* `ROOT_PASSWORD`: The (plaintext) root password
+
 ### Available versions
 * `latest`: `11.8.0`
 
@@ -21,10 +31,6 @@ In order to produce a Just Enough Operating System iso image, we need to run the
 ```sudo ./mkiso.sh <debian_image>.iso```
 The `<debian_image.iso>` file is a Debian ISO file from the Debian project. An archive of ISO images for previous
 Debian versions can be found [here](https://cdimage.debian.org/mirror/cdimage/archive/)
-
-***Notes***:
-* The script will produce the ***JeOS iso file*** _gunet-jeos.iso_ into the ***Working Directory***.
-* We must run the script with ***sudo*** privileges.
 
 ### Configuration
 The produced .iso file installs a Debian OS, by requesting only the root password and the network configuration paramenters, in case DHCP fails, during the installation. All the configuration must be located into _gunet/_ folder. In the current configuration, _gunet/_ folder contains the follwing:
