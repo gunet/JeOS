@@ -23,7 +23,7 @@ ARG DEBIAN_VERSION=11.8.0
 ARG DEBIAN_REPO=https://cdimage.debian.org/mirror/cdimage/archive/${DEBIAN_VERSION}/amd64/iso-cd
 ARG DEBIAN_ISO=debian-${DEBIAN_VERSION}-amd64-netinst.iso
 
-RUN curl -L ${DEBIAN_REPO}/${DEBIAN_ISO} > ${JEOS_DIR}/debian/${DEBIAN_ISO}
+RUN curl -sL ${DEBIAN_REPO}/${DEBIAN_ISO} > ${JEOS_DIR}/debian/${DEBIAN_ISO}
 COPY mkiso.sh helper_functions.sh ${JEOS_DIR}/
 COPY gunet/ ${JEOS_DIR}/gunet/
 

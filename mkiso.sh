@@ -82,6 +82,10 @@ fi
 
 sed -i "s/^M//" $PRESEED_DIR/custom_script.sh
 
+if [[ ! -e /dev/loop0 ]]; then
+  echo 'Creating loop device..'
+  mknod -m 0660 /dev/loop0 b 7 0
+fi
 echo 'mounting ISO9660 filesystem...'
 # source: http://wiki.debian.org/DebianInstaller/ed/EditIso
 [ -d $ISODIR ] || mkdir -p $ISODIR
