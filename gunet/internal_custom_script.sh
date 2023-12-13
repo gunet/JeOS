@@ -17,7 +17,7 @@ apt-get -y --purge autoremove
 
 apt-get -y install acpi-support-base openssh-server \
   iptables-persistent deborphan anacron net-tools \
-  wget telnet tcpdump lsof ping cdebconf
+  wget telnet tcpdump lsof cdebconf
 
 apt-get -y update
 apt-get -y upgrade
