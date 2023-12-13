@@ -25,9 +25,6 @@ else
   ${PROJECT_DIR}/final/gunet-jeos-debian.iso
 fi
 
-echo "ISOFILE = ${ISOFILE}"
-echo "ISOFILE_FINAL = ${ISOFILE_FINAL}"
-exit
 ISODIR=${PROJECT_DIR}/isofiles
 ISODIR_WRITE=${ISODIR}-rw
 PRESEED_DIR=${PROJECT_DIR}/gunet
