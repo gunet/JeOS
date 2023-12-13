@@ -18,6 +18,14 @@ if [[ ! -v DEBIAN_ISO ]]; then
   echo "Env DEBIAN_ISO is not available"
   exit 1
 fi
+
+DEBIAN_MAJOR=$(echo -n ${DEBIAN_VERSION}|cut -d. -f 1)
+echo "Debian major version is ${DEBIAN_MAJOR}.."
+if [[ ${DEBIAN_MAJOR} != "11" && ${DEBIAN_MAJOR} != "12" ]]; then
+  echo "Debian major version not supported!"
+  exit 1
+fi
+
 ISOFILE=${PROJECT_DIR}/debian/${DEBIAN_ISO}
 if [[ -v DEBIAN_VERSION ]]; then
   ISOFILE_FINAL=${PROJECT_DIR}/final/gunet-jeos-debian-${DEBIAN_VERSION}.iso
@@ -104,6 +112,9 @@ umount $ISODIR
 
 echo 'correcting permissions...'
 chmod 755 -R $ISODIR_WRITE
+
+echo "Enabling source.list for Debian major version.."
+cp $PRESEED_DIR/sources.${DEBIAN_MAJOR}.list $PRESEED_DIR/sources.list
 
 echo 'copying preseed file...'
 cp gunet/isolinux.cfg $ISODIR_WRITE/isolinux/

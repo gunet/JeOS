@@ -33,15 +33,19 @@ The following environment variables are available. For network configuration, th
 * Build for another debian version: `docker build --build-arg DEBIAN_VERSION=<version> -t ghcr.io/gunet/jeos-builder .`
 
 ### Available versions
-* `latest`: `11.8.0`
+* Debian 11: `latest`: `11.8.0`
+* Debian 12: `12.2.0`
 
 ## Size
-* Docker image: `510 MB`
+* Docker image:
+  - Debian 11: `510 MB`
+  - Debian 12: `760 MB`
 * JeOS ISO CD:
   - Debian 11: `450 MB`
+  - Debian 12: `750 MB`
 * JeOS installation:
   - Debian 11: `3.2 GB`
-
+  - Debian 12: `1.8 GB`
 
 ## Notes for repo files
 ### Run
