@@ -13,14 +13,21 @@ set -u
 # xorriso
 # syslinux
 
-if [[ $# -eq 0 ]]; then
-  echo "Usage: $0 <debian iso filename>"
+PROJECT_DIR=$(pwd)
+if [[ ! -v DEBIAN_ISO ]]; then
+  echo "Env DEBIAN_ISO is not available"
   exit 1
 fi
-
-PROJECT_DIR=$(pwd)
 ISOFILE=${PROJECT_DIR}/debian/${DEBIAN_ISO}
-ISOFILE_FINAL=${PROJECT_DIR}/final/gunet-jeos.iso
+if [[ -v DEBIAN_VERSION ]]; then
+  ISOFILE_FINAL=${PROJECT_DIR}/final/gunet-jeos-debian-${DEBIAN_VERSION}.iso
+else
+  ${PROJECT_DIR}/final/gunet-jeos-debian.iso
+fi
+
+echo "ISOFILE = ${ISOFILE}"
+echo "ISOFILE_FINAL = ${ISOFILE_FINAL}"
+exit
 ISODIR=${PROJECT_DIR}/isofiles
 ISODIR_WRITE=${ISODIR}-rw
 PRESEED_DIR=${PROJECT_DIR}/gunet

@@ -34,6 +34,7 @@ WORKDIR ${JEOS_DIR}
 
 ENV TZ=Europe/Athens
 ENV DEBIAN_ISO=${DEBIAN_ISO}
+ENV DEBIAN_VERSION=${DEBIAN_VERSION}
 
 # Network settings which can be passed along in the command-line if DHCP does not return something
 # NET_IP: CIDR format for the IP
@@ -62,5 +63,3 @@ ENV NET_DOMAIN="notset"
 ENV ROOT_PASSWORD="notset"
 
 ENTRYPOINT [ "/var/jeos/mkiso.sh" ]
-
-CMD ["${DEBIAN_ISO}"]

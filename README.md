@@ -17,6 +17,14 @@ The following environment variables are available. For network configuration, th
 * `NET_STATIC`: If set to `yes` then we only perform static network configuration and **all** the above variables **must** be set
 * `ROOT_PASSWORD`: The (plaintext) root password
 
+### Building
+* Default `ARG` values:
+  - ARG DEBIAN_VERSION=11.8.0
+  - ARG DEBIAN_REPO=https://cdimage.debian.org/mirror/cdimage/archive/${DEBIAN_VERSION}/amd64/iso-cd
+  - ARG DEBIAN_ISO=debian-${DEBIAN_VERSION}-amd64-netinst.iso
+* Simple build: `docker build -t ghcr.io/gunet/jeos-builder .`
+* Build for another debian version: `docker build --build-arg DEBIAN_VERSION=<version> -t ghcr.io/gunet/jeos-builder .`
+
 ### Available versions
 * `latest`: `11.8.0`
 
@@ -28,12 +36,16 @@ The following environment variables are available. For network configuration, th
 ## Notes for repo files
 ### Run
 In order to produce a Just Enough Operating System iso image, we need to run the script __mkiso.sh__ as follows:
-```sudo ./mkiso.sh <debian_image>.iso```
-The `<debian_image.iso>` file is a Debian ISO file from the Debian project. An archive of ISO images for previous
+`sudo ./mkiso.sh`
+It uses the following two environment variables:
+* `DEBIAN_ISO` to find the Debian ISO in `$(pwd)/debian/${DEBIAN_ISO}`
+* `DEBIAN_VERSION` (if available) to use it in the name of the produced ISO file. The default name is `$(pwd)/final/gunet-jeos-debian.iso` and if the `DEBIAN_VERSION` variable is available `$(pwd)/final/gunet-jeos-debian-${DEBIAN_VERSION}.iso`
+
+The `DEBIAN_ISO` file is a Debian ISO file from the Debian project. An archive of ISO images for previous
 Debian versions can be found [here](https://cdimage.debian.org/mirror/cdimage/archive/)
 
 ### Configuration
-The produced .iso file installs a Debian OS, by requesting only the root password and the network configuration paramenters, in case DHCP fails, during the installation. All the configuration must be located into _gunet/_ folder. In the current configuration, _gunet/_ folder contains the follwing:
+The produced .iso file installs a Debian OS, by requesting only the root password and the network configuration paramenters, in case DHCP fails, during the installation if the necessary environment variables are not available. All the configuration must be located into _gunet/_ folder. In the current configuration, _gunet/_ folder contains the follwing:
 * <ins>_preseed.cfg_</ins>: This file contains all the configuration of d-i installer that automates the installation procedure. The parameters are set to produce an as minimal as possible installation. During the _late_command_ step, we add further configuration and run scripts that we want to include in the installation procedure.
 * <ins>_00norecommends_</ins>: This file is copied into the _/etc/apt/apt.conf.d/_ folder by the late_command of d-i installer and prevents the installation of suggested and recommended packages during package installation via ```apt```.
 * <ins>_disableipv6.conf_</ins>: This file is copied into the _/etc/sysctl.d/_ folder by the late_command of d-i installer and disables ipv6 network configuration.
