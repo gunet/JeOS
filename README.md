@@ -17,6 +17,13 @@ The following environment variables are available. For network configuration, th
 * `NET_STATIC`: If set to `yes` then we only perform static network configuration and **all** the above variables **must** be set
 * `ROOT_PASSWORD`: The (plaintext) root password
 
+### ssh keys
+* By default root is allowed public key ssh access in the resulting VM
+* If you volume mount an `authorized_keys` file under `gunet/` folder then it will be used in the resulting ISO: `-v ${PWD/authorized_keys:/var/jeos/gunet/authorized_keys}`
+
+### Special Notes
+* The ssh server will listen on port `65432` instead of the default `22`
+
 ### Building
 * Default `ARG` values:
   - ARG DEBIAN_VERSION=11.8.0
@@ -30,8 +37,11 @@ The following environment variables are available. For network configuration, th
 
 ## Size
 * Docker image: `510 MB`
-* JeOS ISO CD: `450 MB`
-* JeOS installation: `3.2 GB`
+* JeOS ISO CD:
+  - Debian 11: `450 MB`
+* JeOS installation:
+  - Debian 11: `3.2 GB`
+
 
 ## Notes for repo files
 ### Run

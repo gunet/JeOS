@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DEBIAN_FRONTEND=noninteractive
+
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
@@ -17,7 +19,7 @@ apt-get -y --purge autoremove
 
 apt-get -y install acpi-support-base openssh-server \
   iptables-persistent deborphan anacron net-tools \
-  wget telnet tcpdump lsof cdebconf
+  wget telnet tcpdump lsof iputils-ping cdebconf
 
 apt-get -y update
 apt-get -y upgrade
