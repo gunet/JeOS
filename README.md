@@ -44,7 +44,7 @@ The following environment variables are available. For network configuration, th
   - Debian 11: `450 MB`
   - Debian 12: `750 MB`
 * JeOS installation:
-  - Debian 11: `3.2 GB`
+  - Debian 11: `1.2 GB`
   - Debian 12: `1.8 GB`
 
 ## Notes for repo files
