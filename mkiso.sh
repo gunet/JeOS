@@ -14,8 +14,12 @@ set -u
 # syslinux
 
 PROJECT_DIR=$(pwd)
-if [[ ! -v DEBIAN_ISO ]]; then
-  echo "Env DEBIAN_ISO is not available"
+ISODIR=${PROJECT_DIR}/isofiles
+ISODIR_WRITE=${ISODIR}-rw
+PRESEED_DIR=${PROJECT_DIR}/gunet
+
+if [[ ! -v DEBIAN_ISO || ! -v DEBIAN_VERSION ]]; then
+  echo "Env DEBIAN_ISO or DEBIAN_VERSION are not available"
   exit 1
 fi
 
@@ -25,17 +29,13 @@ if [[ ${DEBIAN_MAJOR} != "11" && ${DEBIAN_MAJOR} != "12" ]]; then
   echo "Debian major version not supported!"
   exit 1
 fi
-
-ISOFILE=${PROJECT_DIR}/debian/${DEBIAN_ISO}
-if [[ -v DEBIAN_VERSION ]]; then
-  ISOFILE_FINAL=${PROJECT_DIR}/final/gunet-jeos-debian-${DEBIAN_VERSION}.iso
-else
-  ${PROJECT_DIR}/final/gunet-jeos-debian.iso
+if [[ ${DEBIAN_MAJOR} == "12" ]]; then
+  echo "Updating sources.list for Debian 12.."
+  sed -i'' 's/bullseye/bookworm/g' ${PRESEED_DIR}/sources.list
 fi
 
-ISODIR=${PROJECT_DIR}/isofiles
-ISODIR_WRITE=${ISODIR}-rw
-PRESEED_DIR=${PROJECT_DIR}/gunet
+ISOFILE=${PROJECT_DIR}/debian/${DEBIAN_ISO}
+ISOFILE_FINAL=${PROJECT_DIR}/final/gunet-jeos-debian-${DEBIAN_VERSION}.iso
 
 # check for environment variables
 if [[ ${NET_STATIC} == "yes" ]]; then
@@ -113,10 +113,7 @@ umount $ISODIR
 echo 'correcting permissions...'
 chmod 755 -R $ISODIR_WRITE
 
-echo "Enabling source.list for Debian major version.."
-cp $PRESEED_DIR/sources.${DEBIAN_MAJOR}.list $PRESEED_DIR/sources.list
-
-echo 'copying preseed file...'
+echo 'copying preseed files...'
 cp gunet/isolinux.cfg $ISODIR_WRITE/isolinux/
 cp -r $PRESEED_DIR/ $ISODIR_WRITE/
 
