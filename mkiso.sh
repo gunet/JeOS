@@ -149,4 +149,5 @@ genisoimage -o $ISOFILE_FINAL \
 isohybrid $ISOFILE_FINAL
 
 rm -r isofiles*
+echo 'finished'
 
