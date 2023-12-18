@@ -17,6 +17,8 @@ The following environment variables are available. For network configuration, th
 * `NET_STATIC`: If set to `yes` then we only perform static network configuration and **all** the above variables **must** be set
 * `ROOT_PASSWORD`: The (plaintext) root password
 
+The `NET_HOSTNAME` and `NET_DOMAIN` can be helpful even in a DHCP configuration in order to *avoid* the installer asking for the corresponing values.
+
 ### ssh keys
 * By default root is allowed public key ssh access in the resulting VM
 * If you volume mount an `authorized_keys` file under `gunet/` folder then it will be used in the resulting ISO: `-v ${PWD/authorized_keys:/var/jeos/gunet/authorized_keys}`
