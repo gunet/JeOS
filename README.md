@@ -19,6 +19,8 @@ The following environment variables are available. For network configuration, th
 
 The `NET_HOSTNAME` and `NET_DOMAIN` can be helpful even in a DHCP configuration in order to *avoid* the installer asking for the corresponing values.
 
+If no environment variables are passed then the installer will just ask more questions. The purpose of the environment variables is mainly to avoid asking questions and making the installation completely non-interactive (for instace in order to use the produced ISO as input to a [packer](https://github.com/gunet/packer) template).
+
 ### ssh keys
 * By default root is allowed public key ssh access in the resulting VM
 * If you volume mount an `authorized_keys` file under `gunet/` folder then it will be used in the resulting ISO: `-v ${PWD/authorized_keys:/var/jeos/gunet/authorized_keys}`
