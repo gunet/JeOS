@@ -5,7 +5,7 @@ echo "Install prerequisite packages.."
 apt -qqy install apt-transport-https ca-certificates \
   curl gnupg2 software-properties-common
 echo "Install git.."
-apt -qqy git
+apt -qqy install git
 echo "Add Docker repository GPG key.."
 curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 echo "Add Docker reposity.."
