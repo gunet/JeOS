@@ -19,9 +19,7 @@ jobs:
         run: |
           echo "base-tag: ${{ inputs.debian-version }}"
       - name: Set timezone
-        uses: zcong1993/setup-timezone@master
-        with:
-          timezone: "Europe/Athens"
+        run: sudo timedatectl set-timezone 'Europe/Athens'
       - name: Get date
         id: date
         run: echo "push_date=$(date '+%H:%M@%d/%m/%Y')" >> $GITHUB_OUTPUT
