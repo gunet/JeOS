@@ -23,7 +23,7 @@ If no environment variables are passed then the installer will just ask more que
 
 ### ssh keys
 * By default root is allowed public key ssh access in the resulting VM
-* If you volume mount an `authorized_keys` file under `gunet/` folder then it will be used in the resulting ISO: `-v ${PWD/authorized_keys:/var/jeos/gunet/authorized_keys}`
+* If you volume mount an `authorized_keys` file under `gunet/` folder then it will be used in the resulting ISO: `-v ${PWD}/authorized_keys:/var/jeos/gunet/authorized_keys`
 
 ### Special Notes
 * The ssh server will listen on port `65432` instead of the default `22`
