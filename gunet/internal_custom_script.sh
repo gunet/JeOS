@@ -13,7 +13,7 @@ apt-get -y dist-upgrade
   laptop-detect eject libsqlite3-0 debconf-i18n gdbm-l10n \
   os-prober libtext-iconv-perl libtext-wrapi18n-perl \
   libtext-charwidth-perl readline-common systemd-timesyncd \
-  tasksel tasksel-data openssh-client openssh-sftp-server
+  tasksel tasksel-data openssh-client openssh-sftp-server gcc-9-base:amd64
 
 apt-get -y --purge autoremove
 
