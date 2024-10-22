@@ -21,6 +21,17 @@ The `NET_HOSTNAME` and `NET_DOMAIN` can be helpful even in a DHCP configuration 
 
 If no environment variables are passed then the installer will just ask more questions. The purpose of the environment variables is mainly to avoid asking questions and making the installation completely non-interactive (for instace in order to use the produced ISO as input to a [packer](https://github.com/gunet/packer) template).
 
+Sample full `vm.env` file (include with `--env-file vm.env` option in `docker run`):
+```
+NET_IP=123.123.123.123/25
+NET_GATEWAY=123.123.123.1
+NET_NAMESERVERS=8.8.8.8
+NET_HOSTNAME=vm.gunet.gr
+NET_DOMAIN=gunet.gr
+NET_STATIC=yes
+ROOT_PASSWORD=password
+```
+
 ### ssh keys
 * By default root is allowed public key ssh access in the resulting VM
 * If you volume mount an `authorized_keys` file under `gunet/` folder then it will be used in the resulting ISO: `-v ${PWD}/authorized_keys:/var/jeos/gunet/authorized_keys`
@@ -39,6 +50,10 @@ If no environment variables are passed then the installer will just ask more que
 ### Available versions
 * Debian 11: `latest`: `11.8.0`
 * Debian 12: `12.2.0`
+
+## HTTP Server
+You can use the `httpd` Docker image to run an httpd server to temporarilly expose the ISO image in order to use in web installations (will listen on port `80`):
+`docker run --rm -p 80:80 --name jeos-web -v ${PWD}/final:/usr/local/apache2/htdocs/ httpd:2.4`
 
 ## Size
 * Docker image:

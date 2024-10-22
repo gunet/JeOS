@@ -1,1 +1,3 @@
 final/
+authorized_keys.gunet
+*.env
