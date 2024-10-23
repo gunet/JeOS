@@ -55,6 +55,12 @@ ROOT_PASSWORD=password
 You can use the `httpd` Docker image to run an httpd server to temporarilly expose the ISO image in order to use in web installations (will listen on port `80`):
 `docker run --rm -p 80:80 --name jeos-web -v ${PWD}/final:/usr/local/apache2/htdocs/ httpd:2.4`
 
+## Mount
+If you want to mount the resulting ISO image locally:
+* `mkdir /mnt/iso`
+* `mount -o loop final/gunet-jeos-debian-<version>.iso /mnt/iso`
+* To unmount: `umount /mnt/iso`
+
 ## Size
 * Docker image:
   - Debian 11: `510 MB`
