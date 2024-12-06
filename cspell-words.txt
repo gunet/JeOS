@@ -1,0 +1,23 @@
+00norecommends
+cdrom
+cpio
+disableipv6
+emul
+genisoimage
+htdocs
+irmod
+ISODIR*
+ISOFILE*
+isofiles # see https://cspell.org/docs/dictionaries-custom/
+isohybrid
+isolinux
+gunet
+jeos
+mkiso
+mknod
+netinst
+newc
+notset
+preseed
+syslinux
+xorriso
