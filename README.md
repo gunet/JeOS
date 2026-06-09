@@ -41,15 +41,15 @@ ROOT_PASSWORD=password
 
 ### Building
 * Default `ARG` values:
-  - ARG DEBIAN_VERSION=11.8.0
+  - ARG DEBIAN_VERSION=12.14.0
   - ARG DEBIAN_REPO=https://cdimage.debian.org/mirror/cdimage/archive/${DEBIAN_VERSION}/amd64/iso-cd
   - ARG DEBIAN_ISO=debian-${DEBIAN_VERSION}-amd64-netinst.iso
 * Simple build: `docker build -t ghcr.io/gunet/jeos-builder .`
 * Build for another debian version: `docker build --build-arg DEBIAN_VERSION=<version> -t ghcr.io/gunet/jeos-builder .`
 
 ### Available versions
-* Debian 11: `latest`: `11.8.0`
-* Debian 12: `12.2.0`
+* Debian 11: `11.11.0`
+* Debian 12: `12.14.0`, `latest`
 
 ## HTTP Server
 You can use the `httpd` Docker image to run an httpd server to temporarilly expose the ISO image in order to use in web installations (will listen on port `80`):
@@ -63,11 +63,11 @@ If you want to mount the resulting ISO image locally:
 
 ## Size
 * Docker image:
-  - Debian 11: `510 MB`
-  - Debian 12: `760 MB`
+  - Debian 11: `960 MB`
+  - Debian 12: `1.56 GB`
 * JeOS ISO CD:
   - Debian 11: `450 MB`
-  - Debian 12: `750 MB`
+  - Debian 12: `850 MB`
 * JeOS installation:
   - Debian 11: `1.2 GB`
   - Debian 12: `1.8 GB`

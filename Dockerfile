@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -yq \
     mkdir -p ${JEOS_DIR}/debian && \
     mkdir -p ${JEOS_DIR}/final
 
-ARG DEBIAN_VERSION=11.8.0
+ARG DEBIAN_VERSION=13.5.0
 ARG DEBIAN_REPO=https://cdimage.debian.org/mirror/cdimage/archive/${DEBIAN_VERSION}/amd64/iso-cd
 ARG DEBIAN_ISO=debian-${DEBIAN_VERSION}-amd64-netinst.iso
 
