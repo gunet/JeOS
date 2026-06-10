@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "Starting Docker installation script.."
 echo "apt update.."
 apt -qq update
 echo "Install prerequisite packages.."
@@ -18,8 +19,3 @@ echo "Show docker status.."
 systemctl status docker
 echo "Running docker version.."
 docker version
-echo "Dowloading docker-compose.."
-curl -fsSL https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64 >/usr/local/bin/docker-compose
-chmod 0755 /usr/local/bin/docker-compose
-echo "Checking docker-compose version"
-/usr/local/bin/docker-compose version

@@ -25,14 +25,22 @@ fi
 
 DEBIAN_MAJOR=$(echo -n ${DEBIAN_VERSION}|cut -d. -f 1)
 echo "Debian major version is ${DEBIAN_MAJOR}.."
-if [[ ${DEBIAN_MAJOR} != "11" && ${DEBIAN_MAJOR} != "12" ]]; then
+if [[ ${DEBIAN_MAJOR} != "11" && ${DEBIAN_MAJOR} != "12" && ${DEBIAN_MAJOR} != "13" ]]; then
   echo "Debian major version not supported!"
   exit 1
 fi
+cp gunet/install_docker_11_12.sh gunet/install_docker.sh
 if [[ ${DEBIAN_MAJOR} == "12" ]]; then
   echo "Updating sources.list for Debian 12.."
   sed -i'' 's/bullseye/bookworm/g' ${PRESEED_DIR}/sources.list
 fi
+if [[ ${DEBIAN_MAJOR} == "13" ]]; then
+  echo "Updating sources.list for Debian 13.."
+  sed -i'' 's/bullseye/trixie/g' ${PRESEED_DIR}/sources.list
+  echo "Updating docker install script for Debian 13.."
+  cp gunet/install_docker_13.sh gunet/install_docker.sh
+fi
+rm gunet/install_docker_*.sh
 
 ISOFILE=${PROJECT_DIR}/debian/${DEBIAN_ISO}
 ISOFILE_FINAL=${PROJECT_DIR}/final/gunet-jeos-debian-${DEBIAN_VERSION}.iso
