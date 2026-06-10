@@ -6,7 +6,9 @@ apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
 
- dpkg --purge console-setup console-setup-linux \
+echo "Purging unnecessary packages.."
+
+dpkg --purge console-setup console-setup-linux \
   keyboard-configuration xkb-data kbd apt-utils \
   nftables usbutils installation-report nano \
   emacsen-common discover discover-data dmidecode \
@@ -17,13 +19,15 @@ apt-get -y dist-upgrade
 
 apt-get -y --purge autoremove
 
+echo "Installing additional packages.."
+
 apt-get -y install acpi-support-base openssh-server \
-  iptables-persistent deborphan anacron net-tools \
+  iptables-persistent anacron net-tools \
   wget telnet tcpdump lsof iputils-ping cdebconf
 
 apt-get -y update
 apt-get -y upgrade
-#apt-get -y -t bullseye-backports upgrade
-#apt-get -y -t bullseye-backports dist-upgrade
+
+echo "Custom script finished.."
 
 exit 0;
