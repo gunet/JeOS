@@ -17,7 +17,7 @@ jobs:
       fail-fast: false
       max-parallel: 1
       matrix:
-        version: ['11.11.0', '12.14.0']
+        version: ['11.11.0', '12.14.0', '13.4.0']
     uses: ./.github/workflows/imagebuild_worker.yml
     with:
       debian-version: ${{matrix.version }}
@@ -26,6 +26,6 @@ jobs:
   latest-build:
     uses: ./.github/workflows/imagebuild_worker.yml
     with:
-      debian-version: '12.14.0'
+      debian-version: '13.4.0'
       image-tag: latest
     secrets: inherit

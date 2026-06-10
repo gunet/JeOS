@@ -54,8 +54,8 @@ ROOT_PASSWORD=password
 
 ### Available versions
 * Debian 11: `11.11.0`
-* Debian 12: `12.14.0`, `latest`
-* Debian 13: `13.4.0`
+* Debian 12: `12.14.0`
+* Debian 13: `13.4.0`, `latest`
 
 ## HTTP Server
 You can use the `httpd` Docker image to run an httpd server to temporarilly expose the ISO image in order to use in web installations (will listen on port `80`):
