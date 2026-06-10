@@ -46,7 +46,7 @@ ROOT_PASSWORD=password
 
 ### Building
 * Default `ARG` values:
-  - ARG DEBIAN_VERSION=12.14.0
+  - ARG DEBIAN_VERSION=13.4.0
   - ARG DEBIAN_REPO=https://cdimage.debian.org/mirror/cdimage/archive/${DEBIAN_VERSION}/amd64/iso-cd
   - ARG DEBIAN_ISO=debian-${DEBIAN_VERSION}-amd64-netinst.iso
 * Simple build: `docker build -t ghcr.io/gunet/jeos-builder .`
