@@ -1,3 +1,3 @@
 final/
-authorized_keys.gunet
+local/
 *.env
