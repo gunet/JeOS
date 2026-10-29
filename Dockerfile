@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 LABEL gr.gunet.uRescom.maintainer="info@gunet.gr"
 LABEL org.opencontainers.image.source="https://github.com/gunet/JeOS"
